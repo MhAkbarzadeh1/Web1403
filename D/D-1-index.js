@@ -1,4 +1,4 @@
-let cmd = require('./C1-cmd');
+let cmd = require('./D-1-cmd');
 let fs = require('fs');
 
 cmd.use("minus", function (contInputs) {
@@ -72,26 +72,30 @@ cmd.use("open", function (contInputs) {
 
 cmd.use("saveOBJ", function (contInputs) {
 
-    fs.readFile(contInputs[1], "utf8", function (error, data) {
+    fs.readFile("Database.json", function (error, data) {
         if (error) {
-            console.log("ERROR:", error);
+            if (error.code === 'ENONET')
+            console.log("File not Found");
+        else{
+            console.log("some other Error",error)
+        }
         } else {
-            let newArray, getData, getDataobj
-            getData = data.toString()
-            getDataobj = JSON.parse(getData)
-            console.log(getDataobj);
-            newArray = getDataobj.data
-            let newObj = {
-                name: contInputs[2],
-                family: contInputs[3],
-                age: contInputs[4]
+
+            let dObj = {
+                name: contInputs[1],
+                family: contInputs[2],
+                age: contInputs[3],
+                email: contInputs[4]
             }
-            newArray.push(newObj)
-            fs.writeFile(contInputs[1], JSON.stringify({ data: newArray }), "utf8", function (err) {
+
+            let obj = JSON.parse(data.toString());
+            obj.data.push(dObj);
+            let txt = JSON.stringify(obj);
+            fs.writeFile("Database.json", txt, {encoding:"utf8"}, function (err) {
                 if (err) {
                     console.log("ERROR:", err);
                 } else {
-                    console.log("File Saved!)");
+                    console.log("File Saved!");
                 }
             })
         }
