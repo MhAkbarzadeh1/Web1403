@@ -1,0 +1,20 @@
+{
+    "records": [
+        {
+            "user": "ali",
+            "pass": "123"
+        },
+        {
+            "user": "reza",
+            "pass": "1234"
+        },
+        {
+            "user": "saeed",
+            "pass": "12345"
+        },
+        {
+            "user": "alireza",
+            "pass": "1234567"
+        }
+    ]
+}
